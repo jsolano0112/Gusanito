@@ -1,26 +1,10 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 
-class Jugador:
-    def eventoParaIniciar(self):
-        if nombreJugador.get() == "":
-            mensajeError = 'No has ingresado tu nombre.'
-            messagebox.showerror('Falta entrada de datos', mensajeError)
-            print("vacío")
-        else:
-            print("Se quitó la ventana")
-            ventanatk.withdraw()
-
-    def nombreDelJugador(self):
-        return nombreJugador.get()
-
-
-
 #Ventana TKinter
 ventanatk = tk.Tk()
 ventanatk.geometry("300x100")
 ventanatk.title('Jueguito del gusanito🐛')
-ventanatk.resizable(0,0)
 
 #para centrar
 altura = ventanatk.winfo_reqheight()
@@ -43,5 +27,20 @@ pregunta.pack()
 #Textbox para recibir nombre del jugador
 nombreJugador = ttk.Entry(ventanatk, width=20)
 nombreJugador.pack()
+class Jugador:
+    def eventoParaIniciar(self):
+        if nombreJugador.get() == "":
+            mensajeError = 'No has ingresado tu nombre.'
+            messagebox.showerror('Falta entrada de datos', mensajeError)
+            print("vacío")
+        else:
+            print("Se quitó la ventana")
+            ventanatk.withdraw()
+
+    def nombreDelJugador(self):
+        return nombreJugador.get()
+
+
+
 
 

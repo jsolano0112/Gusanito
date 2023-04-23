@@ -45,6 +45,7 @@ while True:
 
         #si el gusanito toca los limites
         if cabeza.xcor() > 205 or cabeza.xcor() < -205 or cabeza.ycor() > 140 or cabeza.ycor() < -205:
+          metodo.obtenerPuntaje(nivelmax)
           metodo.reiniciarJuego()
           puntos = 0
           texto.clear()
@@ -53,6 +54,7 @@ while True:
         #si el gusanito toca el propio cuerpo
         for partes in cuerpoGusanito:
             if partes.distance(cabeza) < 10:
+                metodo.obtenerPuntaje(nivelmax)
                 metodo.reiniciarJuego()
                 puntos = 0
                 texto.clear()
@@ -100,6 +102,7 @@ while True:
             cuerpoGusanito[0].color("blue")
             #para que el primer elemento se pegue a la cabeza
             cuerpoGusanito[0].goto(x,y)
+
 
         metodo.mov()
         time.sleep(posponer)
