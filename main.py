@@ -1,133 +1,25 @@
-"""Juana Solano E."""
-import sys
-import turtle
-import time
 import random
-import tkinter as tk
-from tkinter import ttk, messagebox
-
-posponer = 0.1
-cuerpoGusanito = []
+from Gusano import *
+from Jugador import *
 puntos = 0
 nivelmax = 0
+
+posponer = 0.1
 coloresCuerpo = ["red", "yellow", "blue", "pink", "purple"]
 
 
 
-def eventoParaIniciar():
-    if nombreJugador.get() == "":
-        mensajeError = 'No has ingresado tu nombre.'
-        messagebox.showerror('Falta entrada de datos', mensajeError)
-        print("vacío")
-    else:
-        print("Se quitó la ventana")
-        ventanatk.withdraw()
+#llamando clase Gusano para utilizar metodos
+metodo = Gusano()
+#llamando clase jugador
+metodosJugador = Jugador()
 
-
-def nombreDelJugador():
-    return nombreJugador.get()
-
-def reiniciarJuego():
-    time.sleep(1)
-    cabeza.goto(0, 0)
-    cabeza.direction = "stop"
-
-    # Eliminar las partes de cuerpo
-    for partes in cuerpoGusanito:
-        partes.goto(1000, 1000)
-
-    cuerpoGusanito.clear()
-def mov():
-    if cabeza.direction == "up":
-            y = cabeza.ycor() #almacenar coordenada en y
-            cabeza.sety(y + 20)
-
-    if cabeza.direction == "down":
-            y = cabeza.ycor()  # coordenada en y
-            cabeza.sety(y - 20)
-
-    if cabeza.direction == "left":
-            x = cabeza.xcor()  # coordenada en x
-            cabeza.setx(x - 20)
-
-    if cabeza.direction == "right":
-            x = cabeza.xcor()  # coordenada en x
-            cabeza.setx(x + 20)
-def arriba():
-     # para que el gusano de dirija a x direccion
-    if cabeza.direction != "down":
-            cabeza.direction = "up"
-def abajo():
-    if cabeza.direction != "up":
-        cabeza.direction = "down"
-def izquierda():
-    if cabeza.direction != "right":
-        cabeza.direction = "left"
-def derecha():
-    if cabeza.direction != "left":
-     cabeza.direction = "right"
-
-
-#Ventana TKinter
-ventanatk = tk.Tk()
-ventanatk.geometry("300x100")
-ventanatk.title('Jueguito del gusanito🐛')
-ventanatk.resizable(0,0)
-
-#para centrar
-altura = ventanatk.winfo_reqheight()
-anchura = ventanatk.winfo_reqwidth()
-altura_pantalla = ventanatk.winfo_screenheight()
-anchura_pantalla = ventanatk.winfo_screenwidth()
-print(
-    f"Altura: {altura}\nAnchura: {anchura}\nAltura de pantalla: {altura_pantalla}\nAnchura de pantalla: {anchura_pantalla}")
-x = (anchura_pantalla // 2) - (anchura // 2)
-y = (altura_pantalla // 2) - (altura // 2)
-
-ventanatk.geometry(f"+{x}+{y}")
-
-#Labels
-bienvenido = tk.Label(ventanatk, text='Bienvenido')
-bienvenido.pack()
-
-pregunta = tk.Label(ventanatk, text='Ingresa tu nombre')
-pregunta.pack()
-
-#Textbox para recibir nombre del jugador
-nombreJugador = ttk.Entry(ventanatk, width=20)
-nombreJugador.pack()
-
-#Botonsito para seguir
-botonInicio = ttk.Button(ventanatk, text='Iniciar Juego😊', command=eventoParaIniciar)
-botonInicio.pack()
-
-
-#Ventana Turtle
-#crear ventana
-
-
-ventana = turtle.Screen()
-ventana.title("Juego de gusanito By Juana")
-ventana.bgcolor("#397441")
-ventana.setup(width = 440, height = 440)
-ventana.tracer(0) #para que se ejecute en la mitad
-
-
-#Cabeza de gusanito
-cabeza = turtle.Turtle()
-cabeza.speed(0) #velocidad
-cabeza.shape("square") #forma
-cabeza.color("brown2")
-cabeza.penup() #para no dejar rastro cuando se mueva
-cabeza.goto(0, 0) #posicion
-cabeza.direction = "stop"
-
-#Comida
-comida = turtle.Turtle()
-comida.speed(0) #velocidad
-comida.shape("circle") #forma
-comida.color("red")
-comida.penup() #para no dejar rastro
+# conectar con el Teclado
+ventana.listen()
+ventana.onkeypress(metodo.arriba, "Up")
+ventana.onkeypress(metodo.abajo, "Down")
+ventana.onkeypress(metodo.izquierda, "Left")
+ventana.onkeypress(metodo.derecha, "Right")
 
 
 #Puntos
@@ -138,52 +30,33 @@ texto.hideturtle()
 texto.goto(0, 180)
 texto.penup()
 texto.fillcolor("red")
-texto.write(f'Hola {nombreDelJugador()},    Tus Puntos:{puntos}    Alto Puntaje:{nivelmax}', align="center", font=("impact), 12"))
-
-#Barrera
-barrera = turtle.Turtle()
-barrera.goto(-220, 160)
-barrera.pensize(3) #grosor
-barrera.color("black")
-barrera.speed(2)
-barrera.goto(220, 160)
-barrera.hideturtle()
+texto.write(f'Hola {metodosJugador.nombreDelJugador()},    Tus Puntos:{puntos}    Alto Puntaje:{nivelmax}', align="center", font=("impact), 12"))
 
 
-# conectar con el Teclado
+#Botonsito para seguir
+botonInicio = ttk.Button(ventanatk, text='Iniciar Juego😊', command=metodosJugador.eventoParaIniciar)
+botonInicio.pack()
 
-ventana.listen()
-ventana.onkeypress(arriba, "Up")
-ventana.onkeypress(abajo, "Down")
-ventana.onkeypress(izquierda, "Left")
-ventana.onkeypress(derecha, "Right")
 
-#Bucle para inicializar
+#Para inicializar
 
 while True:
         ventana.update()
 
-        #si el gusanito está yendo para lado y+ que no esté disponible el y-
-        if cabeza.direction == "up":
-            if ventana.onkeypress(abajo, "Down"):
-                cabeza.sety(y + 20)
-
         #si el gusanito toca los limites
         if cabeza.xcor() > 205 or cabeza.xcor() < -205 or cabeza.ycor() > 140 or cabeza.ycor() < -205:
-          reiniciarJuego()
+          metodo.reiniciarJuego()
           puntos = 0
           texto.clear()
-          texto.write(f'Hola {nombreDelJugador()},    Tus Puntos:{puntos}    Alto Puntaje:{nivelmax}', align="center",
-                    font=("impact), 12"))
+          texto.write(f'Hola {metodosJugador.nombreDelJugador()},    Tus Puntos:{puntos}    Alto Puntaje:{nivelmax}', align="center", font=("impact), 12"))
 
         #si el gusanito toca el propio cuerpo
         for partes in cuerpoGusanito:
             if partes.distance(cabeza) < 10:
-                reiniciarJuego()
+                metodo.reiniciarJuego()
                 puntos = 0
                 texto.clear()
-                texto.write(f'Hola {nombreDelJugador()},    Tus Puntos:{puntos}    Alto Puntaje:{nivelmax}',
-                            align="center", font=("impact), 12"))
+                texto.write(f'Hola {metodosJugador.nombreDelJugador()},    Tus Puntos:{puntos}    Alto Puntaje:{nivelmax}', align="center", font=("impact), 12"))
 
         #si el gusanito toca la comida
         if cabeza.distance(comida) < 20:
@@ -210,8 +83,7 @@ while True:
 
 
             texto.clear()
-            texto.write(f'Hola {nombreDelJugador()},    Tus Puntos:{puntos}    Alto Puntaje:{nivelmax}', align="center",
-                        font=("impact), 12"))
+            texto.write(f'Hola {metodosJugador.nombreDelJugador()},    Tus Puntos:{puntos}    Alto Puntaje:{nivelmax}', align="center", font=("impact), 12"))
 
         #mover cuerpo de la serpiente
         totalPartes = len(cuerpoGusanito)
@@ -229,11 +101,12 @@ while True:
             #para que el primer elemento se pegue a la cabeza
             cuerpoGusanito[0].goto(x,y)
 
-        mov()
+        metodo.mov()
         time.sleep(posponer)
 
 
-
-
-
 ventanatk.mainloop()
+
+
+
+
