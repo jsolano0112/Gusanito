@@ -1,5 +1,8 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+from Gusano import *
+
+
 
 #Ventana TKinter
 ventanatk = tk.Tk()
@@ -11,7 +14,6 @@ altura = ventanatk.winfo_reqheight()
 anchura = ventanatk.winfo_reqwidth()
 altura_pantalla = ventanatk.winfo_screenheight()
 anchura_pantalla = ventanatk.winfo_screenwidth()
-print(f"Altura: {altura}\nAnchura: {anchura}\nAltura de pantalla: {altura_pantalla}\nAnchura de pantalla: {anchura_pantalla}")
 x = (anchura_pantalla // 2) - (anchura // 2)
 y = (altura_pantalla // 2) - (altura // 2)
 

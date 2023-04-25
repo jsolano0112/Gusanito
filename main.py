@@ -1,16 +1,16 @@
 import random
 from Gusano import *
 from Jugador import *
+
 puntos = 0
 nivelmax = 0
 
 posponer = 0.1
-coloresCuerpo = ["red", "yellow", "blue", "pink", "purple"]
-
-
+coloresCuerpo = ("red", "blue", "pink", "purple")
 
 #llamando clase Gusano para utilizar metodos
 metodo = Gusano()
+
 #llamando clase jugador
 metodosJugador = Jugador()
 
@@ -25,17 +25,18 @@ ventana.onkeypress(metodo.derecha, "Right")
 #Puntos
 texto = turtle.Turtle()
 texto.speed(0)
-texto.color("Black")
+texto.color("white")
 texto.hideturtle()
 texto.goto(0, 180)
 texto.penup()
 texto.fillcolor("red")
-texto.write(f'Hola {metodosJugador.nombreDelJugador()},    Tus Puntos:{puntos}    Alto Puntaje:{nivelmax}', align="center", font=("impact), 12"))
+texto.write(f'Hola {metodosJugador.nombreDelJugador()},    Tus Puntos:{puntos}    Alto Puntaje:{nivelmax}', align="center", font=("impact, 12"))
 
 
 #Botonsito para seguir
 botonInicio = ttk.Button(ventanatk, text='Iniciar Juego😊', command=metodosJugador.eventoParaIniciar)
 botonInicio.pack()
+
 
 
 #Para inicializar
@@ -45,20 +46,20 @@ while True:
 
         #si el gusanito toca los limites
         if cabeza.xcor() > 205 or cabeza.xcor() < -205 or cabeza.ycor() > 140 or cabeza.ycor() < -205:
-          metodo.obtenerPuntaje(nivelmax)
+          metodo.obtenerPuntaje(metodosJugador.nombreDelJugador(),nivelmax)
           metodo.reiniciarJuego()
           puntos = 0
           texto.clear()
-          texto.write(f'Hola {metodosJugador.nombreDelJugador()},    Tus Puntos:{puntos}    Alto Puntaje:{nivelmax}', align="center", font=("impact), 12"))
+          texto.write(f'Hola {metodosJugador.nombreDelJugador()},    Tus Puntos:{puntos}    Alto Puntaje:{nivelmax}', align="center", font=("impact, 12"))
 
         #si el gusanito toca el propio cuerpo
         for partes in cuerpoGusanito:
             if partes.distance(cabeza) < 10:
-                metodo.obtenerPuntaje(nivelmax)
+                metodo.obtenerPuntaje(metodosJugador.nombreDelJugador(),nivelmax)
                 metodo.reiniciarJuego()
                 puntos = 0
                 texto.clear()
-                texto.write(f'Hola {metodosJugador.nombreDelJugador()},    Tus Puntos:{puntos}    Alto Puntaje:{nivelmax}', align="center", font=("impact), 12"))
+                texto.write(f'Hola {metodosJugador.nombreDelJugador()},    Tus Puntos:{puntos}    Alto Puntaje:{nivelmax}', align="center", font=("impact, 12"))
 
         #si el gusanito toca la comida
         if cabeza.distance(comida) < 20:
@@ -72,7 +73,7 @@ while True:
             partes.speed(0)  # velocidad
             partes.shape("square")  # forma
             if len(cuerpoGusanito) % 2 != 0:
-                partes.color("black")
+                partes.color("yellow")
             else:
                 partes.color(random.choice(coloresCuerpo))
             partes.penup()  # para no dejar rastro cuando se mueva
@@ -85,7 +86,7 @@ while True:
 
 
             texto.clear()
-            texto.write(f'Hola {metodosJugador.nombreDelJugador()},    Tus Puntos:{puntos}    Alto Puntaje:{nivelmax}', align="center", font=("impact), 12"))
+            texto.write(f'Hola {metodosJugador.nombreDelJugador()},    Tus Puntos:{puntos}    Alto Puntaje:{nivelmax}', align="center", font=("impact, 12"))
 
         #mover cuerpo de la serpiente
         totalPartes = len(cuerpoGusanito)

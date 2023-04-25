@@ -3,14 +3,17 @@ import time
 from Jugador import *
 
 #llamando clase jugador
-metodosJugador = Jugador()
 
 cuerpoGusanito = []
 nivelmax = 0
+jugadores = []
+#archivo
+puntajeAlc = []
+#archivo
 
 ventana = turtle.Screen()
 ventana.title("Juego de gusanito By Juana")
-ventana.bgcolor("#397441")
+ventana.bgcolor("black")
 ventana.setup(width = 440, height = 440)
 ventana.tracer(0) #para que se ejecute en la mitad
 
@@ -34,13 +37,16 @@ comida.penup() #para no dejar rastro
 #Barrera
 barrera = turtle.Turtle()
 barrera.goto(-220, 160)
-barrera.pensize(3) #grosor
-barrera.color("black")
+barrera.pensize(2)
+barrera.pencolor('white')
 barrera.speed(2)
 barrera.goto(220, 160)
 barrera.hideturtle()
 
+
+
 class Gusano:
+
     def mov(self):
         if cabeza.direction == "up":
             y = cabeza.ycor()  # almacenar coordenada en y
@@ -75,14 +81,20 @@ class Gusano:
         if cabeza.direction != "left":
             cabeza.direction = "right"
 
-    def obtenerPuntaje(self, nivelmax):
+    def obtenerPuntaje(self,nombre, nivelmax):
+        #Es para obtener el puntaje max por cada que empiece a jugar nuevamente, sin cerrar la ventana
         try:
             archivo = open('PuntajeAltoDelJugador.txt', 'w')
-            archivo.write(f'{metodosJugador.nombreDelJugador()}: {nivelmax}')
+            jugadores.append(nombre)
+            puntajeAlc.append(nivelmax)
+
+            for valorj,valorp in zip(jugadores, puntajeAlc):
+                archivo.write(f'{valorj}: {valorp}\n')
+
         except Exception as e:
             print('se guardó el archivo')
         finally:
-                archivo.close()
+            archivo.close()
 
     def reiniciarJuego(self):
         time.sleep(1)
