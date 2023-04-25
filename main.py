@@ -4,7 +4,6 @@ from Jugador import *
 
 puntos = 0
 nivelmax = 0
-
 posponer = 0.1
 coloresCuerpo = ("red", "blue", "pink", "purple")
 

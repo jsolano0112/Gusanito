@@ -6,18 +6,15 @@ from Gusano import *
 
 #Ventana TKinter
 ventanatk = tk.Tk()
-ventanatk.geometry("300x100")
 ventanatk.title('Jueguito del gusanito🐛')
-
 #para centrar
-altura = ventanatk.winfo_reqheight()
-anchura = ventanatk.winfo_reqwidth()
-altura_pantalla = ventanatk.winfo_screenheight()
-anchura_pantalla = ventanatk.winfo_screenwidth()
-x = (anchura_pantalla // 2) - (anchura // 2)
-y = (altura_pantalla // 2) - (altura // 2)
+ancho_ventana = 300
+alto_ventana = 100
+x_ventana = ventanatk.winfo_screenwidth() // 2 - ancho_ventana // 2
+y_ventana = ventanatk.winfo_screenheight() // 2 - alto_ventana // 2
+posicion = str(ancho_ventana) + "x" + str(alto_ventana) + "+" + str(x_ventana) + "+" + str(y_ventana)
+ventanatk.geometry(posicion)
 
-ventanatk.geometry(f"+{x}+{y}")
 
 #Labels
 bienvenido = tk.Label(ventanatk, text='Bienvenido')
