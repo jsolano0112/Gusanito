@@ -37,7 +37,13 @@ botonInicio = ttk.Button(ventanatk, text='Iniciar Juego😊', command=metodosJug
 botonInicio.pack()
 
 
+def eliminarVentana():
+    if messagebox.askokcancel("Cerrar la aplicación", "¿Seguro que quieres cerrar la aplicación?"):
+        ventanatk.destroy()
+        turtle.exitonclick()
 
+if ventanatk.protocol("WM_DELETE_WINDOW", eliminarVentana):
+    print("Cerró juego")
 #Para inicializar
 
 while True:
@@ -109,7 +115,6 @@ while True:
 
 
 ventanatk.mainloop()
-
 
 
 

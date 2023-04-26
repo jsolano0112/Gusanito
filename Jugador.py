@@ -1,8 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from Gusano import *
-
-
+import turtle
 
 #Ventana TKinter
 ventanatk = tk.Tk()
@@ -15,7 +14,6 @@ y_ventana = ventanatk.winfo_screenheight() // 2 - alto_ventana // 2
 posicion = str(ancho_ventana) + "x" + str(alto_ventana) + "+" + str(x_ventana) + "+" + str(y_ventana)
 ventanatk.geometry(posicion)
 
-
 #Labels
 bienvenido = tk.Label(ventanatk, text='Bienvenido')
 bienvenido.pack()
@@ -26,20 +24,19 @@ pregunta.pack()
 #Textbox para recibir nombre del jugador
 nombreJugador = ttk.Entry(ventanatk, width=20)
 nombreJugador.pack()
+
 class Jugador:
     def eventoParaIniciar(self):
         if nombreJugador.get() == "":
+            turtle.exitonclick()
             mensajeError = 'No has ingresado tu nombre.'
             messagebox.showerror('Falta entrada de datos', mensajeError)
             print("vacío")
+
         else:
             print("Se quitó la ventana")
             ventanatk.withdraw()
 
     def nombreDelJugador(self):
         return nombreJugador.get()
-
-
-
-
 
