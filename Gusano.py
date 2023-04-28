@@ -5,6 +5,7 @@ from Jugador import *
 #llamando clase jugador
 
 cuerpoGusanito = []
+velocidad = 0
 nivelmax = 0
 jugadores = []
 #archivo
@@ -16,7 +17,6 @@ ventana.title("Juego de gusanito By Juana")
 ventana.bgcolor("black")
 ventana.setup(width = 440, height = 440)
 ventana.tracer(0) #para que se ejecute en la mitad
-
 
 #Cabeza de gusanito
 cabeza = turtle.Turtle()
@@ -43,26 +43,28 @@ barrera.speed(2)
 barrera.goto(220, 160)
 barrera.hideturtle()
 
-
-
 class Gusano:
 
-    def mov(self):
+    def mov(self, nivelmax):
+        velocidad = 20
+        if nivelmax % 5 == 0:
+            velocidad = velocidad + 10
+
         if cabeza.direction == "up":
             y = cabeza.ycor()  # almacenar coordenada en y
-            cabeza.sety(y + 20)
+            cabeza.sety(y + velocidad)
 
         if cabeza.direction == "down":
             y = cabeza.ycor()  # coordenada en y
-            cabeza.sety(y - 20)
+            cabeza.sety(y - velocidad)
 
         if cabeza.direction == "left":
             x = cabeza.xcor()  # coordenada en x
-            cabeza.setx(x - 20)
+            cabeza.setx(x - velocidad)
 
         if cabeza.direction == "right":
             x = cabeza.xcor()  # coordenada en x
-            cabeza.setx(x + 20)
+            cabeza.setx(x + velocidad)
 
     def arriba(self):
         # para que el gusano de dirija a x direccion
@@ -83,6 +85,8 @@ class Gusano:
 
     def obtenerPuntaje(self,nombre, nivelmax):
         #Es para obtener el puntaje max por cada que empiece a jugar nuevamente, sin cerrar la ventana
+
+
         try:
             archivo = open('PuntajeAltoDelJugador.txt', 'w')
             jugadores.append(nombre)
@@ -105,6 +109,7 @@ class Gusano:
         for partes in cuerpoGusanito:
             partes.goto(1000, 1000)
         cuerpoGusanito.clear()
+
 
 
 

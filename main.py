@@ -20,7 +20,6 @@ ventana.onkeypress(metodo.abajo, "Down")
 ventana.onkeypress(metodo.izquierda, "Left")
 ventana.onkeypress(metodo.derecha, "Right")
 
-
 #Puntos
 texto = turtle.Turtle()
 texto.speed(0)
@@ -31,11 +30,9 @@ texto.penup()
 texto.fillcolor("red")
 texto.write(f'Hola {metodosJugador.nombreDelJugador()},    Tus Puntos:{puntos}    Alto Puntaje:{nivelmax}', align="center", font=("impact, 12"))
 
-
 #Botonsito para seguir
 botonInicio = ttk.Button(ventanatk, text='Iniciar Juego😊', command=metodosJugador.eventoParaIniciar)
 botonInicio.pack()
-
 
 def eliminarVentana():
     if messagebox.askokcancel("Cerrar la aplicación", "¿Seguro que quieres cerrar la aplicación?"):
@@ -44,9 +41,10 @@ def eliminarVentana():
 
 if ventanatk.protocol("WM_DELETE_WINDOW", eliminarVentana):
     print("Cerró juego")
-#Para inicializar
 
-while True:
+#Para inicializar
+corre = True
+while corre:
         ventana.update()
 
         #si el gusanito toca los limites
@@ -89,7 +87,6 @@ while True:
             if puntos > nivelmax:
                 nivelmax = puntos
 
-
             texto.clear()
             texto.write(f'Hola {metodosJugador.nombreDelJugador()},    Tus Puntos:{puntos}    Alto Puntaje:{nivelmax}', align="center", font=("impact, 12"))
 
@@ -109,8 +106,7 @@ while True:
             #para que el primer elemento se pegue a la cabeza
             cuerpoGusanito[0].goto(x,y)
 
-
-        metodo.mov()
+        metodo.mov(nivelmax)
         time.sleep(posponer)
 
 

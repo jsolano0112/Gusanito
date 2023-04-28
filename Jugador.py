@@ -28,7 +28,6 @@ nombreJugador.pack()
 class Jugador:
     def eventoParaIniciar(self):
         if nombreJugador.get() == "":
-            turtle.exitonclick()
             mensajeError = 'No has ingresado tu nombre.'
             messagebox.showerror('Falta entrada de datos', mensajeError)
             print("vacío")
